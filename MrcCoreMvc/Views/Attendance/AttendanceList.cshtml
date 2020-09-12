@@ -1,0 +1,35 @@
+﻿@model IEnumerable<MRCDataLibrary._02_Models.AttendanceModel>
+
+<h1>Attendance List</h1>
+
+@if (Model is null)
+{
+    <h4>Records Loading...</h4>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Start Time</th>
+                <th>Worship Name</th>
+                <th>Attendance Name</th>
+                <th>Date Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var attendance in Model)
+            {
+                <tr>
+                    <td>@attendance.WORSHIP_DATE.ToString("yyyy-MM-dd")</td>
+                    <td>@attendance.START_TIME</td>
+                    <td>@attendance.WORSHIP_NAME</td>
+                    <td>@attendance.MEMBER_NAME</td>
+                    <td>@attendance.REGISTER_DT</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

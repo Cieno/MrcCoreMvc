@@ -1,0 +1,18 @@
+﻿@model MRCDataLibrary._02_Models.WorshipModel
+
+<h1>Delete</h1>
+
+@if (Model is null)
+{
+    <h4>The requested record was not found.</h4>
+}
+else
+{
+<div class="h4">
+    Are you sure you want to delete the information of @Model.WORSHIP_NAME on @Model.WORSHIP_DATE.ToString("MM/dd/yyyy")?
+</div>
+    <form asp-action="Delete">
+        <input asp-for="@Model.WORSHIP_ID" type="hidden" />
+        <input type="submit" value="Delete" class="btn btn-danger" />
+    </form>
+}

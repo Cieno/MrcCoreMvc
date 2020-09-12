@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MrcCoreMvc", "MrcCoreMvc\MrcCoreMvc.csproj", "{71F2F3AC-43F7-4DE2-8080-DF6F73CFCA4E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MRCDataLibrary", "..\MRCDataLibrary\MRCDataLibrary.csproj", "{A738F336-2B6E-43ED-A057-ED28507E34B2}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ChurchRecordDB", "..\ChurchRecordDB\ChurchRecordDB.sqlproj", "{A693A10F-EE78-410C-9653-6833C20350A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71F2F3AC-43F7-4DE2-8080-DF6F73CFCA4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F2F3AC-43F7-4DE2-8080-DF6F73CFCA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F2F3AC-43F7-4DE2-8080-DF6F73CFCA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F2F3AC-43F7-4DE2-8080-DF6F73CFCA4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A738F336-2B6E-43ED-A057-ED28507E34B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A738F336-2B6E-43ED-A057-ED28507E34B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A738F336-2B6E-43ED-A057-ED28507E34B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A738F336-2B6E-43ED-A057-ED28507E34B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A693A10F-EE78-410C-9653-6833C20350A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A693A10F-EE78-410C-9653-6833C20350A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A693A10F-EE78-410C-9653-6833C20350A3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A693A10F-EE78-410C-9653-6833C20350A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A693A10F-EE78-410C-9653-6833C20350A3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A693A10F-EE78-410C-9653-6833C20350A3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {45BCC4D3-EF88-4F0F-89B5-7B8A1C49CAEF}
+	EndGlobalSection
+EndGlobal

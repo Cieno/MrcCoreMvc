@@ -1,0 +1,37 @@
+﻿@model IEnumerable<MRCDataLibrary._02_Models.WorshipModel>
+
+<h1>Worship List</h1>
+
+@if (Model is null)
+{
+    <h4>Records Loading...</h4>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Worship Name</th>
+                <th>Start Time</th>
+                <th>Worship Type</th>
+                <th>Location</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var worship in Model)
+            {
+                <tr>
+                    <td><a href="/Attendance/AttendanceList?worshipId=@worship.WORSHIP_ID">@worship.WORSHIP_DATE.ToString("yyyy-MM-dd") </a></td>
+                    <td><a href="/Worship/Details?worshipId=@worship.WORSHIP_ID">@worship.WORSHIP_NAME </a></td>
+                    <td>@worship.START_TIME</td>                    
+                    <td>@worship.WORSHIP_TYPE</td>
+                    <td>@worship.WORSHIP_LOCATION</td>
+                    <td>@worship.DESCRIPTION</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

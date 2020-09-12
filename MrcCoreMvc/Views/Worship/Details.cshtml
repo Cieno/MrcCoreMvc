@@ -1,0 +1,66 @@
+﻿@model MRCDataLibrary._02_Models.WorshipModel
+
+<h1>Details</h1>
+
+
+@if (Model is null)
+{
+    <h4>The requested record was not found.</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Update">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="WORSHIP_DATE" class="custom-control-label"></label>
+                    <input asp-for="WORSHIP_DATE" class="form-control" />
+                    <span asp-validation-for="WORSHIP_DATE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="START_TIME" class="custom-control-label"></label>
+                    <input asp-for="START_TIME" class="form-control" />
+                    <span asp-validation-for="START_TIME" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WORSHIP_NAME" class="custom-control-label"></label>
+                    <input asp-for="WORSHIP_NAME" class="form-control" />
+                    <span asp-validation-for="WORSHIP_NAME" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WORSHIP_TYPE" class="custom-control-label"></label>
+                    <input asp-for="WORSHIP_TYPE" class="form-control" />
+                    <span asp-validation-for="WORSHIP_TYPE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="WORSHIP_LOCATION" class="custom-control-label"></label>
+                    <input asp-for="WORSHIP_LOCATION" class="form-control" />
+                    <span asp-validation-for="WORSHIP_LOCATION" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DESCRIPTION" class="custom-control-label"></label>
+                    <input asp-for="DESCRIPTION" class="form-control" />
+                    <span asp-validation-for="DESCRIPTION" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-for="WORSHIP_ID" type="hidden" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Update Worship Info" class="btn btn-primary" />
+                </div>
+                <div class="form-group">
+                    <a asp-action="Delete" asp-route-worshipId="@Model.WORSHIP_ID" class="btn btn-danger">Delete Worship Info</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        @*@Html.ActionLink("Edit", "Edit", new { worshipId = Model.WORSHIP_ID })*@
+        <a asp-action="Index">Back to List</a>
+    </div>
+}
+
+

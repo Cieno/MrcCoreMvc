@@ -1,0 +1,69 @@
+﻿@model MRCDataLibrary._02_Models.MemberModel
+
+<h1>Detail Info</h1>
+
+@if (Model is null)
+{
+    <h4>The requested record was not found.</h4>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Update">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="FIRST_NAME" class="custom-control-label"></label>
+                    <input asp-for="FIRST_NAME" class="form-control" />
+                    <span asp-validation-for="FIRST_NAME" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LAST_NAME" class="custom-control-label"></label>
+                    <input asp-for="LAST_NAME" class="form-control" />
+                    <span asp-validation-for="LAST_NAME" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="EMAIL_ADDR" class="custom-control-label"></label>
+                    <input asp-for="EMAIL_ADDR" class="form-control" />
+                    <span asp-validation-for="EMAIL_ADDR" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PHONE_NUM" class="custom-control-label"></label>
+                    <input asp-for="PHONE_NUM" class="form-control" />
+                    <span asp-validation-for="PHONE_NUM" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="REGISTER_DATE" class="custom-control-label"></label>
+                    <input asp-for="REGISTER_DATE" class="form-control" />
+                    <span asp-validation-for="REGISTER_DATE" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FAMILY_ID" class="custom-control-label"></label>
+                    <input asp-for="FAMILY_ID" class="form-control" />
+                    <span asp-validation-for="FAMILY_ID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GROUP_ID" class="custom-control-label"></label>
+                    <input asp-for="GROUP_ID" class="form-control" />
+                    <span asp-validation-for="GROUP_ID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TEAM_ID" class="custom-control-label"></label>
+                    <input asp-for="TEAM_ID" class="form-control" />
+                    <span asp-validation-for="TEAM_ID" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input asp-for="MEMBER_ID" type="hidden" />
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Update Member Info" class="btn btn-primary" />
+                </div>
+                <div class="form-group">
+                    <a asp-action="Delete" asp-route-memberId="@Model.MEMBER_ID" class="btn btn-danger">Delete Member Info</a>
+                </div>
+            </form>
+        </div>
+    </div>
+}

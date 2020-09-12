@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MRCDataLibrary._02_Models.MemberModel>
+
+@{
+    ViewData["Title"] = "MemberListView";
+}
+
+<h1>Member List</h1>
+
+@if (Model is null)
+{
+    <h4>Records Loading...</h4>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Register Date</th>
+                <th>Family</th>
+                <th>Group</th>
+                <th>Team</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var member in Model)
+            {
+                <tr>
+                    <td><a href="/Member/Detail?memberId=@member.MEMBER_ID"> @member.LAST_NAME   @member.FIRST_NAME </a></td>
+                    <td>@member.EMAIL_ADDR</td>
+                    <td>@member.PHONE_NUM</td>
+                    <td>@member.REGISTER_DATE.ToString("yyyy-MM-dd")</td>
+                    <td>@member.FAMILY_ID</td>
+                    <td>@member.GROUP_ID</td>
+                    <td>@member.TEAM_ID</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
