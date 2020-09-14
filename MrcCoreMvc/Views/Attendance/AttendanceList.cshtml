@@ -1,6 +1,14 @@
-﻿@model IEnumerable<MRCDataLibrary._02_Models.AttendanceModel>
+﻿@model MrcCoreMvc.Models.AttendanceListModel
 
-<h1>Attendance List</h1>
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-info">@Model.Worship.WORSHIP_DATE.ToString("dd/MM/yyyy")  @Model.Worship.WORSHIP_NAME Attendance List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" asp-route-worshipId="@Model.Worship.WORSHIP_ID" class="btn btn-info form-control text-white">Add Attendance</a>
+    </div>
+</div>
+
 
 @if (Model is null)
 {
@@ -11,6 +19,7 @@ else
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
+                <th>Worship ID</th>
                 <th>Date</th>
                 <th>Start Time</th>
                 <th>Worship Name</th>
@@ -19,9 +28,10 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var attendance in Model)
+            @foreach (var attendance in Model.AttendanceList)
             {
                 <tr>
+                    <td>@attendance.WORSHIP_ID</td>
                     <td>@attendance.WORSHIP_DATE.ToString("yyyy-MM-dd")</td>
                     <td>@attendance.START_TIME</td>
                     <td>@attendance.WORSHIP_NAME</td>
@@ -30,6 +40,9 @@ else
                 </tr>
             }
         </tbody>
-
     </table>
+
+    <div>
+        <a href="/Worship/Index?worshipId=@Model.Worship.WORSHIP_ID" >Back to Schedule List</a>
+    </div>
 }

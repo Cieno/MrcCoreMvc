@@ -1,6 +1,14 @@
 ﻿@model IEnumerable<MRCDataLibrary._02_Models.WorshipModel>
 
-<h1>Worship List</h1>
+
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-info">Schedule List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" class="btn btn-info form-control text-white">Add Schedule</a>
+    </div>
+</div>
 
 @if (Model is null)
 {

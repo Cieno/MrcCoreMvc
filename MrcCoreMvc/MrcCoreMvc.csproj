@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UserSecretsId>ec11f1e8-fd08-4305-ba9d-90dabd49ebf6</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\MRCDataLibrary\MRCDataLibrary.csproj" />
+    <Reference Include="MRCDataLibrary">
+      <HintPath>References\MRCDataLibrary.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
