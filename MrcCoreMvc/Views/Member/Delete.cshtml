@@ -14,5 +14,6 @@ else
     <form asp-action="Delete">
         <input asp-for="@Model.MEMBER_ID" type="hidden" />
         <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class="btn btn-secondary" href="/Member/Detail?memberId=@Model.MEMBER_ID">Cancel</a>
     </form>
 }

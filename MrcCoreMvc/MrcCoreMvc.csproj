@@ -14,8 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="References\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="MRCDataLibrary">
-      <HintPath>References\MRCDataLibrary.dll</HintPath>
+      <HintPath>..\..\MRCDataLibrary\bin\Debug\netcoreapp3.1\MRCDataLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 

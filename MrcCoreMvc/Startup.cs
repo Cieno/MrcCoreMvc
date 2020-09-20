@@ -34,6 +34,8 @@ namespace MrcCoreMvc
             services.AddSingleton<IMemberData, MemberData>();
             services.AddSingleton<IWorshipData, WorshipData>();
             services.AddSingleton<IAttendanceData, AttendanceData>();
+            services.AddSingleton<ICodeMasterData, CodeMasterData>();
+            services.AddSingleton<ICategoryMasterData, CategoryMasterData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

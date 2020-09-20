@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using MRCDataLibrary._02_Models;
 using MRCDataLibrary._03_Data;
 
@@ -12,15 +13,22 @@ namespace MrcCoreMvc.Controllers
     public class WorshipController : Controller
     {
         private readonly IWorshipData _worshipData;
+        private readonly ICodeMasterData _codeMasterData;
 
-        public WorshipController(IWorshipData worshipData)
+        public WorshipController(IWorshipData worshipData, ICodeMasterData codeMasterData)
         {
             _worshipData = worshipData;
+            _codeMasterData = codeMasterData;
         }
         // GET: WorshipController
         public async Task<IActionResult> Index()
         {
             var worships = await _worshipData.GetWorships();
+            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
+            worships.ForEach(x =>
+            {
+                x.WORSHIP_NAME = worshipType.Where(n => x.WORSHIP_TYPE == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+            });
             return View(worships);
         }
 
@@ -29,13 +37,24 @@ namespace MrcCoreMvc.Controllers
         {
             var worship = new WorshipModel();
             worship = await _worshipData.GetWorshipById(worshipId);
+            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
+            worshipType.ForEach(x =>
+            {
+                worship.WorshipTypeSelectList.Add(new SelectListItem { Value = x.CODE_ID, Text = x.CODE_DESCR });
+            });
             return View(worship);
         }
 
         // GET: WorshipController/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            return View();
+            var worship = new WorshipModel();
+            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
+            worshipType.ForEach(x =>
+            {
+                worship.WorshipTypeSelectList.Add(new SelectListItem { Value = x.CODE_ID, Text = x.CODE_DESCR });
+            });
+            return View(worship);
         }
 
         // POST: WorshipController/Create

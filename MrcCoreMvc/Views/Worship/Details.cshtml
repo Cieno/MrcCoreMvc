@@ -15,22 +15,12 @@ else
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="WORSHIP_DATE" class="custom-control-label"></label>
-                    <input asp-for="WORSHIP_DATE" class="form-control" />
+                    <input asp-for="WORSHIP_DATE" class="form-control" readonly />
                     <span asp-validation-for="WORSHIP_DATE" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="START_TIME" class="custom-control-label"></label>
-                    <input asp-for="START_TIME" class="form-control" />
-                    <span asp-validation-for="START_TIME" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="WORSHIP_NAME" class="custom-control-label"></label>
-                    <input asp-for="WORSHIP_NAME" class="form-control" />
-                    <span asp-validation-for="WORSHIP_NAME" class="text-danger"></span>
-                </div>
-                <div class="form-group">
                     <label asp-for="WORSHIP_TYPE" class="custom-control-label"></label>
-                    <input asp-for="WORSHIP_TYPE" class="form-control" />
+                    <select asp-for="WORSHIP_TYPE" asp-items="@Model.WorshipTypeSelectList" class="form-control"></select>
                     <span asp-validation-for="WORSHIP_TYPE" class="text-danger"></span>
                 </div>
                 <div class="form-group">

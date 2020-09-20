@@ -16,15 +16,17 @@ namespace MrcCoreMvc.Controllers
         private readonly IAttendanceData _attendanceData;
         private readonly IMemberData _memberData;
         private readonly IWorshipData _worshipData;
+        private readonly ICodeMasterData _codeMasterData;
 
-        public AttendanceController(IAttendanceData attendanceData, IMemberData memberData, IWorshipData worshipData)
+        public AttendanceController(IAttendanceData attendanceData, IMemberData memberData, IWorshipData worshipData, ICodeMasterData codeMasterData)
         {
             _attendanceData = attendanceData;
             _memberData = memberData;
             _worshipData = worshipData;
+            _codeMasterData = codeMasterData;
         }
         // GET: AttendanceController
-        public async Task <IActionResult> Index()
+        public IActionResult Index()
         {
             return View();
         }
@@ -35,6 +37,10 @@ namespace MrcCoreMvc.Controllers
             var attendanceList = new AttendanceListModel();
             var attendance = await _attendanceData.GetAttendanceByWorship(worshipId);
             var worship = await _worshipData.GetWorshipById(worshipId);
+            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
+
+            worship.WORSHIP_NAME = worshipType.Where(n => worship.WORSHIP_TYPE == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+
             attendanceList.AttendanceList = attendance;
             attendanceList.Worship = worship;
 
@@ -50,7 +56,7 @@ namespace MrcCoreMvc.Controllers
             members.ForEach(x =>
             {
                 attendance.MEMBER_LIST
-                .Add(item: new SelectListItem { Value = x.MEMBER_ID, Text = x.FIRST_NAME + " " + x.LAST_NAME });
+                .Add(item: new SelectListItem { Value = x.MEMBER_ID, Text = x.LAST_NAME + " " + x.FIRST_NAME});
             });
             return View(attendance);
         }
@@ -68,25 +74,21 @@ namespace MrcCoreMvc.Controllers
             return RedirectToAction("AttendanceList", new { worshipId = id });
         }
 
+
         // GET: AttendanceController/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<IActionResult> Delete(string worshipId, string memberId)
         {
-            return View();
+            var attendance = await _attendanceData.GetAttendanceByWorshipMember(worshipId, memberId);
+            return View(attendance);
         }
 
         // POST: AttendanceController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> Delete(AttendanceModel attendance)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            await _attendanceData.DeleteAttendance(attendance.WORSHIP_ID, attendance.MEMBER_ID);
+            return RedirectToAction("AttendanceList", new { worshipId = attendance.WORSHIP_ID });
         }
     }
 }

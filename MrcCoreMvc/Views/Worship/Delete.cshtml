@@ -8,11 +8,12 @@
 }
 else
 {
-<div class="h4">
-    Are you sure you want to delete the information of @Model.WORSHIP_NAME on @Model.WORSHIP_DATE.ToString("MM/dd/yyyy")?
-</div>
+    <div class="h4">
+        Are you sure you want to delete the information of @Model.WORSHIP_NAME on @Model.WORSHIP_DATE.ToString("MM/dd/yyyy")?
+    </div>
     <form asp-action="Delete">
         <input asp-for="@Model.WORSHIP_ID" type="hidden" />
         <input type="submit" value="Delete" class="btn btn-danger" />
+        <a class="btn btn-secondary" href="/Worship/Details?worshipId=@Model.WORSHIP_ID">Cancel</a>
     </form>
 }

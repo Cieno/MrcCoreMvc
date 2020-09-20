@@ -2,7 +2,7 @@
 
 <div class="row">
     <div class="col-9">
-        <h2 class="text-info">@Model.Worship.WORSHIP_DATE.ToString("dd/MM/yyyy")  @Model.Worship.WORSHIP_NAME Attendance List</h2>
+        <h2 class="text-info">@Model.Worship.WORSHIP_DATE.ToString("dd/MM/yyyy HH:mm")  @Model.Worship.WORSHIP_NAME Attendance List</h2>
     </div>
     <div class="col-3">
         <a asp-action="Create" asp-route-worshipId="@Model.Worship.WORSHIP_ID" class="btn btn-info form-control text-white">Add Attendance</a>
@@ -19,25 +19,28 @@ else
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>Worship ID</th>
-                <th>Date</th>
-                <th>Start Time</th>
-                <th>Worship Name</th>
                 <th>Attendance Name</th>
-                <th>Date Time</th>
+                <th>Check-In Time</th>
+                <th></th>
+                @*<th>Date</th>
+                <th>Start Time</th>*@
             </tr>
         </thead>
         <tbody>
             @foreach (var attendance in Model.AttendanceList)
             {
-                <tr>
-                    <td>@attendance.WORSHIP_ID</td>
-                    <td>@attendance.WORSHIP_DATE.ToString("yyyy-MM-dd")</td>
-                    <td>@attendance.START_TIME</td>
-                    <td>@attendance.WORSHIP_NAME</td>
-                    <td>@attendance.MEMBER_NAME</td>
-                    <td>@attendance.REGISTER_DT</td>
-                </tr>
+            <tr>
+                @*<td>@attendance.WORSHIP_ID</td>*@
+                <td>@attendance.MEMBER_NAME</td>
+                <td>@attendance.REGISTER_DT</td>
+                <td>
+                    <a asp-action="Delete" asp-route-worshipId="@attendance.WORSHIP_ID" asp-route-memberId="@attendance.MEMBER_ID" class="btn btn-danger btn-sm" style="width: 70px">
+                        Delete
+                    </a>                   
+                </td>
+                @*<td>@attendance.WORSHIP_DATE.ToString("yyyy-MM-dd")</td>
+                <td>@attendance.WORSHIP_DATE.ToString("HH:mm")</td>*@
+            </tr>
             }
         </tbody>
     </table>

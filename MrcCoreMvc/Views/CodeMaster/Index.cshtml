@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MRCDataLibrary._02_Models.CodeMasterModel>
+
+
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-info">Code List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" class="btn btn-info form-control text-white">Add Code</a>
+    </div>
+</div>
+
+@if (Model is null)
+{
+    <h4>Records Loading...</h4>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Category ID</th>
+                <th>Code ID</th>
+                <th>Code Description</th>
+                <th>Sort Order</th>
+                <th>Active YN</th>
+                <th>Create Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var code in Model)
+            {
+                <tr>
+                    <td>@code.CATEGORY_ID</td>
+                    <td>@code.CODE_ID</td>
+                    <td>@code.CODE_DESCR</td>
+                    <td>@code.SORT_ORDER</td>
+                    <td>@code.ACTIVE_YN</td>
+                    <td>@code.CREATE_DT.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}

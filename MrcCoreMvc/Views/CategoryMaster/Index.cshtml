@@ -1,0 +1,43 @@
+﻿@model IEnumerable<MRCDataLibrary._02_Models.CategoryMasterModel>
+
+
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-info">Category List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" class="btn btn-info form-control text-white">Add Code</a>
+    </div>
+</div>
+
+@if (Model is null)
+{
+    <h4>Records Loading...</h4>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Category ID</th>
+                <th>Category Description</th>
+                <th>Abbreviation Code</th>
+                <th>Active YN</th>
+                <th>Create Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var code in Model)
+            {
+                <tr>
+                    <td>@code.CATEGORY_ID</td>
+                    <td>@code.CATEGORY_DESCR</td>
+                    <td>@code.ABBR_CD</td>
+                    <td>@code.ACTIVE_YN</td>
+                    <td>@code.CREATE_DT.ToString("yyyy-MM-dd")</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
