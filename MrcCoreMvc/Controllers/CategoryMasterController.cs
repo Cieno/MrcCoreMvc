@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MRCDataLibrary._02_Models;
 using MRCDataLibrary._03_Data;
 
 namespace MrcCoreMvc.Controllers
 {
+    [Authorize]
     public class CategoryMasterController : Controller
     {
         private readonly ICategoryMasterData _categoryMasterData;
