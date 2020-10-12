@@ -5,7 +5,7 @@
         <h2 class="text-info">@Model.Worship.WORSHIP_DATE.ToString("dd/MM/yyyy HH:mm")  @Model.Worship.WORSHIP_NAME Attendance List</h2>
     </div>
     <div class="col-3">
-        <a asp-action="Create" asp-route-worshipId="@Model.Worship.WORSHIP_ID" class="btn btn-info form-control text-white">Add Attendance</a>
+        <a asp-action="Create" asp-route-worshipId="@Model.Worship.WORSHIP_ID" class="btn btn-info form-control text-white"><i class="fas fa-plus"></i> &nbsp;Add Attendance</a>
     </div>
 </div>
 
@@ -16,36 +16,41 @@
 }
 else
 {
-    <table class="table table-striped">
+    <table id="DT_load" class="table table-striped table-bordered" style="width:100%">
         <thead class="thead-dark">
             <tr>
                 <th>Attendance Name</th>
                 <th>Check-In Time</th>
                 <th></th>
                 @*<th>Date</th>
-                <th>Start Time</th>*@
+                    <th>Start Time</th>*@
             </tr>
         </thead>
-        <tbody>
+        @*<tbody>
             @foreach (var attendance in Model.AttendanceList)
             {
-            <tr>
-                @*<td>@attendance.WORSHIP_ID</td>*@
-                <td>@attendance.MEMBER_NAME</td>
-                <td>@attendance.REGISTER_DT</td>
-                <td>
-                    <a asp-action="Delete" asp-route-worshipId="@attendance.WORSHIP_ID" asp-route-memberId="@attendance.MEMBER_ID" class="btn btn-danger btn-sm" style="width: 70px">
-                        Delete
-                    </a>                   
-                </td>
-                @*<td>@attendance.WORSHIP_DATE.ToString("yyyy-MM-dd")</td>
-                <td>@attendance.WORSHIP_DATE.ToString("HH:mm")</td>*@
-            </tr>
+                <tr>
+                    <td>@attendance.MEMBER_NAME</td>
+                    <td>@attendance.REGISTER_DT</td>
+                    <td>
+                        <a asp-action="Delete" asp-route-worshipId="@attendance.WORSHIP_ID" asp-route-memberId="@attendance.MEMBER_ID" class="btn btn-danger btn-sm" style="width: 70px">
+                            Delete
+                        </a>
+                    </td>
+                    <td>@attendance.WORSHIP_DATE.ToString("yyyy-MM-dd")</td>
+                        <td>@attendance.WORSHIP_DATE.ToString("HH:mm")</td>
+                </tr>
             }
-        </tbody>
+        </tbody>*@
     </table>
 
+    @section Scripts{
+        <script src="~/js/attendance.js"></script>
+    }
+
     <div>
-        <a href="/Worship/Index?worshipId=@Model.Worship.WORSHIP_ID" >Back to Schedule List</a>
+        <a href="/Worship/Index?worshipId=@Model.Worship.WORSHIP_ID">Back to Schedule List</a>
     </div>
+
+
 }

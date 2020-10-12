@@ -9,6 +9,7 @@ using MRCDataLibrary._03_Data;
 namespace MrcCoreMvc.Controllers
 {
     [Authorize]
+    [ApiController]
     public class WorshipController : Controller
     {
         private readonly IWorshipData _worshipData;
@@ -19,8 +20,14 @@ namespace MrcCoreMvc.Controllers
             _worshipData = worshipData;
             _codeMasterData = codeMasterData;
         }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
         // GET: WorshipController
-        public async Task<IActionResult> Index()
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
         {
             var worships = await _worshipData.GetWorships();
             var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
@@ -28,7 +35,8 @@ namespace MrcCoreMvc.Controllers
             {
                 x.WORSHIP_NAME = worshipType.Where(n => x.WORSHIP_TYPE == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
             });
-            return View(worships);
+            //return View(worships);
+            return Json(new { data = worships });
         }
 
         // GET: WorshipController/Details/5
