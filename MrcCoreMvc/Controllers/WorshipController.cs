@@ -9,7 +9,6 @@ using MRCDataLibrary._03_Data;
 namespace MrcCoreMvc.Controllers
 {
     [Authorize]
-    [ApiController]
     public class WorshipController : Controller
     {
         private readonly IWorshipData _worshipData;
@@ -33,10 +32,13 @@ namespace MrcCoreMvc.Controllers
             var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
             worships.ForEach(x =>
             {
-                x.WORSHIP_NAME = worshipType.Where(n => x.WORSHIP_TYPE == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+                x.WorshipName = worshipType.Where(n => x.WorshipType == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+                x.SimpleDate = x.WorshipDate.ToString("yyyy-MM-dd");
+                x.SimpleTime = x.WorshipDate.ToString("HH:mm");
             });
             //return View(worships);
-            return Json(new { data = worships });
+            var result = Json(new { data = worships.ToList() });
+            return result;
         }
 
         // GET: WorshipController/Details/5
@@ -85,20 +87,27 @@ namespace MrcCoreMvc.Controllers
             return RedirectToAction("Details", new { worshipId });
         }
 
-        // GET: WorshipController/Delete/5
+
+        //public async Task<IActionResult> Delete(string worshipId)
+        //{
+        //    var worship = await _worshipData.GetWorshipById(worshipId);
+        //    return View(worship);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete(WorshipModel worship)
+        //{
+        //    await _worshipData.DeleteWorship(worship.WorshipId);
+        //    return RedirectToAction("Index");
+        //}
+
+        [HttpDelete]
         public async Task<IActionResult> Delete(string worshipId)
         {
-            var worship = await _worshipData.GetWorshipById(worshipId);
-            return View(worship);
-        }
-
-        // POST: WorshipController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(WorshipModel worship)
-        {
-            await _worshipData.DeleteWorship(worship.WORSHIP_ID);
-            return RedirectToAction("Index");
+            await _worshipData.DeleteWorship(worshipId);
+            //return RedirectToAction("Index");
+            return Json(new { success = true, message = "Delete successful" });
         }
     }
 }

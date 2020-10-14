@@ -33,26 +33,7 @@ namespace MrcCoreMvc.Controllers
 
         #region API Calls
 
-        [HttpGet]
-        public async Task<IActionResult> AttendanceList(string worshipId)
-        {
-            var attendanceList = new AttendanceListModel();
-            var attendance = await _attendanceData.GetAttendanceByWorship(worshipId);
-            var worship = await _worshipData.GetWorshipById(worshipId);
-            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
-
-            worship.WORSHIP_NAME = worshipType.Where(n => worship.WORSHIP_TYPE == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
-
-            attendanceList.AttendanceList = attendance;
-            attendanceList.Worship = worship;
-
-            return Json(new { data = attendanceList });
-        }
-
-        #endregion
-
-
-        // GET: AttendanceController/Details/5
+        //[HttpGet]
         //public async Task<IActionResult> AttendanceList(string worshipId)
         //{
         //    var attendanceList = new AttendanceListModel();
@@ -60,13 +41,32 @@ namespace MrcCoreMvc.Controllers
         //    var worship = await _worshipData.GetWorshipById(worshipId);
         //    var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
 
-        //    worship.WORSHIP_NAME = worshipType.Where(n => worship.WORSHIP_TYPE == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+        //    worship.WorshipName = worshipType.Where(n => worship.WorshipType == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
 
         //    attendanceList.AttendanceList = attendance;
         //    attendanceList.Worship = worship;
 
-        //    return View(attendanceList);
+        //    return Json(new { data = attendanceList });
         //}
+
+        #endregion
+
+
+        // GET: AttendanceController/Details/5
+        public async Task<IActionResult> AttendanceList(string worshipId)
+        {
+            var attendanceList = new AttendanceListModel();
+            var attendance = await _attendanceData.GetAttendanceByWorship(worshipId);
+            var worship = await _worshipData.GetWorshipById(worshipId);
+            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
+
+            worship.WorshipName = worshipType.Where(n => worship.WorshipType == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+
+            attendanceList.AttendanceList = attendance;
+            attendanceList.Worship = worship;
+
+            return View(attendanceList);
+        }
 
         // GET: AttendanceController/Create
         public async Task<IActionResult> Create(string worshipId)
