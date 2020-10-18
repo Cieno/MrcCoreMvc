@@ -9,11 +9,11 @@
 else
 {
     <div class="h4">
-        Are you sure you want to delete @Model.FIRST_NAME + @Model.LAST_NAME's information?
+        Are you sure you want to delete @Model.FirstName @Model.LastName's information?
     </div>
     <form asp-action="Delete">
-        <input asp-for="@Model.MEMBER_ID" type="hidden" />
+        <input asp-for="@Model.MemberId" type="hidden" />
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a class="btn btn-secondary" href="/Member/Detail?memberId=@Model.MEMBER_ID">Cancel</a>
+        <a class="btn btn-secondary" href="/Member/Detail?memberId=@Model.MemberId">Cancel</a>
     </form>
 }

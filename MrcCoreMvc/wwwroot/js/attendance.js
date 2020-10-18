@@ -1,34 +1,39 @@
 ﻿var dataTable;
-
+var wId = document.currentScript.getAttribute('wId');
 $(document).ready(function () {
     loadList();
 });
 
 function loadList() {
-    dataTable = $('#DT_load').DataTable({
-        "ajax": {
-            "url": "/Attendance/AttendanceList",
-            "type": "GET",
-            "datatype": "json"
+    dataTable = $('#Attendance_DataTable').DataTable({
+        ajax: {
+            url: "/Attendance/GetAttendanceList",
+            data: {
+                worshipId: wId
+            },
+            type: "GET",
+            datatype: "json"
         },
-        "columns": [
-            { "data": "data.MEMBER_NAME", "width": "40%" },
-            { "data": "data.REGISTER_DT", "width": "30%" },
+        columns: [
+            { data: "memberName", width: "25%" },
+            { data: "registerDt", width: "25%" },
             {
-                "data": "data",
-                "render": function (data) {
-                    return ` <div class="text-center">                        
-                        <a class="btn btn-danger text-white" style="cursor:pointer; width:100px;" onclick=Delete('/api/category/'+${data})>
-                            <i class="far fa-trash-alt"></i> Delete
-                        </a>
-                    </div>`;
-                }, "width": "30%"
+                data: { worshipId: "worshipId", memberId: 'MemberId'},
+                render: function (data) {
+                    return `<div class="text-center"> 
+                              <a class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
+                                onclick="Delete('/Attendance/Delete?worshipId='+${data.worshipId}+'&memberId='+${data.memberId});"> 
+                                <i class="far fa-trash-alt"></i> Delete
+                              </a>
+                            </div>`
+                }, width: "25%"
+
             }
         ],
-        "language": {
-            "emptyTable": "no data found."
+        language: {
+            emptyTable: "no data found."
         },
-        "width": "100%"
+        width: "100%"
     });
 }
 

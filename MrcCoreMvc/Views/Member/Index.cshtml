@@ -35,13 +35,13 @@ else
             @foreach (var member in Model)
             {
                 <tr>
-                    <td><a href="/Member/Detail?memberId=@member.MEMBER_ID"> @member.LAST_NAME   @member.FIRST_NAME </a></td>
-                    <td>@member.EMAIL_ADDR</td>
-                    <td>@member.PHONE_NUM</td>
-                    <td>@member.BIRTH_DATE.ToString("yyyy-MM-dd")</td>
-                    <td>@member.FAMILY_ID</td>
-                    <td>@member.GROUP_NAME</td>
-                    <td>@member.TEAM_NAME</td>
+                    <td><a href="/Member/Detail?memberId=@member.MemberId"> @member.LastName @member.FirstName </a></td>
+                    <td>@member.EmailAddr</td>
+                    <td>@member.PhoneNum</td>
+                    <td>@member.BirthDate.ToString("yyyy-MM-dd")</td>
+                    <td>@member.FamilyId</td>
+                    <td>@member.GroupCd</td>
+                    <td>@member.TeamCd</td>
                 </tr>
             }
         </tbody>

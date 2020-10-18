@@ -16,9 +16,9 @@ function loadDataTable() {
                 data: { worshipId: "worshipId", simpleDate: "simpleDate" }, width: "15%",
                 render: function (data) { return `<a href="/Attendance/AttendanceList?worshipId=${data.worshipId}">${data.simpleDate}</a>` }
             },
-            { data: 'simpleTime', "width": "10%" },
-            { data: 'worshipName', "width": "20%" },
-            { data: 'location', "width": "30%" },
+            { data: 'simpleTime', width: "10%" },
+            { data: 'worshipName', width: "20%" },
+            { data: 'location', width: "30%" },
             {
                 data: 'worshipId',
                 render: function (data) {
@@ -32,13 +32,13 @@ function loadDataTable() {
                             <i class="far fa-trash-alt"></i> Delete
                         </a>
                     </div>`;
-                }, "width": "25%"
+                }, width: "25%"
             }
         ],
         "language": {
             "emptyTable": "no data found."
         },
-        "width": "100%"
+        width: "100%"
     });
 }
 

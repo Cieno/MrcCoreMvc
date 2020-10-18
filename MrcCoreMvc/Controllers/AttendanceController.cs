@@ -30,10 +30,28 @@ namespace MrcCoreMvc.Controllers
             return View();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AttendanceList(string worshipId)
+        {
+            var worship = await _worshipData.GetWorshipById(worshipId);
+            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
+            worship.WorshipName = worshipType.Where(n => worship.WorshipType == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+
+            return View(worship);
+        }
 
         #region API Calls
 
-        //[HttpGet]
+        [HttpGet]
+        public async Task<IActionResult> GetAttendanceList(string worshipId)
+        {
+            var attendance = await _attendanceData.GetAttendanceByWorship(worshipId);
+            return Json(new { data = attendance.ToList() }) ;
+        }
+
+        #endregion
+
+
         //public async Task<IActionResult> AttendanceList(string worshipId)
         //{
         //    var attendanceList = new AttendanceListModel();
@@ -46,38 +64,19 @@ namespace MrcCoreMvc.Controllers
         //    attendanceList.AttendanceList = attendance;
         //    attendanceList.Worship = worship;
 
-        //    return Json(new { data = attendanceList });
+        //    return View(attendanceList);
         //}
-
-        #endregion
-
-
-        // GET: AttendanceController/Details/5
-        public async Task<IActionResult> AttendanceList(string worshipId)
-        {
-            var attendanceList = new AttendanceListModel();
-            var attendance = await _attendanceData.GetAttendanceByWorship(worshipId);
-            var worship = await _worshipData.GetWorshipById(worshipId);
-            var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
-
-            worship.WorshipName = worshipType.Where(n => worship.WorshipType == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
-
-            attendanceList.AttendanceList = attendance;
-            attendanceList.Worship = worship;
-
-            return View(attendanceList);
-        }
 
         // GET: AttendanceController/Create
         public async Task<IActionResult> Create(string worshipId)
         {
             var members = await _memberData.GetMembers();
             var attendance = new AttendanceModel();
-            attendance.WORSHIP_ID = worshipId;
+            attendance.WorshipId = worshipId;
             members.ForEach(x =>
             {
-                attendance.MEMBER_LIST
-                .Add(item: new SelectListItem { Value = x.MEMBER_ID, Text = x.LAST_NAME + " " + x.FIRST_NAME});
+                attendance.MemberList
+                .Add(item: new SelectListItem { Value = x.MemberId, Text = x.LastName + " " + x.FirstName});
             });
             return View(attendance);
         }
@@ -96,20 +95,27 @@ namespace MrcCoreMvc.Controllers
         }
 
 
-        // GET: AttendanceController/Delete/5
+        //// GET: AttendanceController/Delete/5
+        //public async Task<IActionResult> Delete(string worshipId, string memberId)
+        //{
+        //    var attendance = await _attendanceData.GetAttendanceByWorshipMember(worshipId, memberId);
+        //    return View(attendance);
+        //}
+
+        //// POST: AttendanceController/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete(AttendanceModel attendance)
+        //{
+        //    await _attendanceData.DeleteAttendance(attendance.WorshipId, attendance.MemberId);
+        //    return RedirectToAction("AttendanceList", new { worshipId = attendance.WorshipId });
+        //}
+
+        [HttpDelete]
         public async Task<IActionResult> Delete(string worshipId, string memberId)
         {
-            var attendance = await _attendanceData.GetAttendanceByWorshipMember(worshipId, memberId);
-            return View(attendance);
-        }
-
-        // POST: AttendanceController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(AttendanceModel attendance)
-        {
-            await _attendanceData.DeleteAttendance(attendance.WORSHIP_ID, attendance.MEMBER_ID);
-            return RedirectToAction("AttendanceList", new { worshipId = attendance.WORSHIP_ID });
+            await _attendanceData.DeleteAttendance(worshipId, memberId);
+            return Json(new { success = true, message = "Delete successful" });
         }
     }
 }

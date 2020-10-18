@@ -27,8 +27,8 @@ namespace MrcCoreMvc.Controllers
             var teamType = await _codeMasterData.GetCodeList("TEAM_CD");
             members.ForEach(x =>
             {
-                x.GROUP_NAME = groupType.Where(g => x.GROUP_CD == g.CODE_ID).FirstOrDefault()?.CODE_DESCR;
-                x.TEAM_NAME = teamType.Where(t => x.TEAM_CD == t.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+                x.GroupName = groupType.Where(g => x.GroupCd == g.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+                x.TeamName = teamType.Where(t => x.TeamCd == t.CODE_ID).FirstOrDefault()?.CODE_DESCR;
             });
             return View(members);
         }
@@ -94,7 +94,7 @@ namespace MrcCoreMvc.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(MemberModel member)
         {
-            await _memberData.DeleteMember(member.MEMBER_ID);
+            await _memberData.DeleteMember(member.MemberId);
             return RedirectToAction("Index");
         }
 

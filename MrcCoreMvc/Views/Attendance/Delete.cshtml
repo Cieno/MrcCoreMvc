@@ -9,13 +9,13 @@
 else
 {
     <div class="h4">
-        Are you sure you want to delete @Model.MEMBER_NAME's attendence on @Model.WORSHIP_DATE.ToString("yyyy-MM-dd")?
+        Are you sure you want to delete @Model.MemberName's attendence on @Model.WorshipDate.ToString("yyyy-MM-dd")?
     </div>
     <form asp-action="Delete">
-        <input asp-for="@Model.WORSHIP_ID" type="hidden" />
-        <input asp-for="@Model.MEMBER_ID" type="hidden" />
+        <input asp-for="@Model.WorshipId" type="hidden" />
+        <input asp-for="@Model.MemberId" type="hidden" />
         <input type="submit" value="Delete" class="btn btn-danger" />
-        <a class="btn btn-secondary" href="/Attendance/AttendanceList?worshipId=@Model.WORSHIP_ID">Cancel</a>
+        <a class="btn btn-secondary" href="/Attendance/AttendanceList?worshipId=@Model.WorshipId">Cancel</a>
         @*<a href="/Attendance/AttendanceList?worshipId=@Model.WORSHIP_ID">Cancel</a>*@
     </form>
 }

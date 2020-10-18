@@ -37,8 +37,7 @@ namespace MrcCoreMvc.Controllers
                 x.SimpleTime = x.WorshipDate.ToString("HH:mm");
             });
             //return View(worships);
-            var result = Json(new { data = worships.ToList() });
-            return result;
+            return Json(new { data = worships.ToList() });
         }
 
         // GET: WorshipController/Details/5
