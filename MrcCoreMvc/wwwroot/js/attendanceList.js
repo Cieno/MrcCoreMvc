@@ -15,20 +15,24 @@ function loadList() {
             datatype: "json"
         },
         columns: [
-            { data: 'attendanceName', width: "20%" },
+            { data: 'memberName', width: "20%" },
             { data: 'attendanceType', width: "20%" },
-            { data: 'estimatedArrival', width: "60%" }
-            //{
-            //    data: { worshipId: "worshipId", memberId: 'memberId'},
-            //    render: function (data) {
-            //        return `<div class="text-center"> 
-            //                  <a class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
-            //                    onclick="Delete('/Attendance/Delete?worshipId='+${data.worshipId}+'&memberId='+${data.memberId});"> 
-            //                    <i class="far fa-trash-alt"></i> Delete
-            //                  </a>
-            //                </div>`
-            //    }, width: "20%"
-            //}
+            {
+                data: 'estimatedArrival', width: "20%",
+                render: function (data) {
+                    return `${ ("0" + data.hours).slice(-2) }:${("0" + data.minutes).slice(-2)}` }
+            },
+            {
+                data: { worshipId: "worshipId", memberId: 'memberId'},
+                render: function (data) {
+                    return `<div class="text-center"> 
+                              <a class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
+                                onclick="Delete('/Attendance/Delete?worshipId='+${data.worshipId}+'&memberId='+${data.memberId});"> 
+                                <i class="far fa-trash-alt"></i> Delete
+                              </a>
+                            </div>`
+                }, width: "20%"
+            }
         ],
         language: {
             emptyTable: "no data found."

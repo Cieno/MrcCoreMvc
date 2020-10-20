@@ -1,6 +1,6 @@
 ﻿@model MRCDataLibrary._02_Models.AttendanceModel
 
-<h1>Create New Worship</h1>
+<h3>Register Attendance</h3>
 
 
 <div class="row">
@@ -8,25 +8,115 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="@Model.MemberId" class="custom-control-label"></label>
+                <label asp-for="@Model.MemberName" class="col-form-label-lg b"></label>
                 <select asp-for="@Model.MemberId" asp-items="@Model.MemberList" class="form-control"></select>
                 <span asp-validation-for="@Model.MemberId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.AttendanceType" class="col-form-label-lg"></label> <br />
+                <input type="radio" checked asp-for="@Model.AttendanceType" name="AttendanceType" value="Offline" 
+                       onclick="HideControl()"/> OffLine
+                &nbsp;
+                &nbsp;
+                &nbsp;
+                <input type="radio" asp-for="@Model.AttendanceType" name="AttendanceType" value="Online" onclick="ShowControl()" /> OnLine <br />
+                <span asp-validation-for="@Model.AttendanceType" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group" id="agreeText">
+
+                <label class="col-form-label-lg">Estimated arrival time at church</label>
+                <input type="time" asp-for="@Model.EstimatedArrival" />
+                <span asp-validation-for="@Model.EstimatedArrival" class="text-danger"></span>
+                <br /><br />
+
+                <label class="col-form-label-lg">In-Person Worship Registration/Waiver</label>
+                <textarea rows="20" cols="100">
+  (An English version follows the Korean)
+
+  *대면 예배 참석 및 책임 면제 동의서* 
+
+ 본인 (본인 및 가족)은 몬트리올 람원교회에서 대면예배 및 모임에 참석하기로 동의했음을 인정합니다.
+ 
+ 본인 (본인 및 가족)은 몬트리올 람원교회에서 대면예배 및 모임에 참석하는 동안 COVID-19에 노출될 위험이 있음을 인지하고 이것을 감수할 것을 확인합니다. 
+ 
+ 본인 (본인 및 가족)은 몬트리올 람원교회와 Peoples Church of Montreal의 직원, 자원 봉사자들 및 성도들이 교회 건물을 방문하거나 예배 및 모임 동안에 COVID-19에 대한 잠재적 또는 실제 노출로 인해 발생할 수 있는 개인 상해 또는 기타 손해와 관련된 모든 조치, 청구, 소송, 보상, 요구 등을 하지 않을 것에 동의합니다. 
+ 
+ 본인 (본인 및 가족)은 또한 몬트리올 람원교회와 Peoples Church of Montreal가 언제든지 발생할 수 있는 모든 청구, 소송, 보상, 요구에 대한 책임 면제를 위해 이 동의서를 사용할 수 있음을 동의합니다. 
+ 
+ 본인 (본인 및 가족)은 이 동의서를 주의 깊게 검토했으며 위에 명시된 조건을 완전히 이해했으며 이 동의서에 자발적으로 서명함을 인정합니다.
+
+  *개인 정보 수집*
+ 본인 (본인 및 가족)은 COVID-19 확산 방지를 위해 개인 정보(이름 및 전화번호)를 제공하는 것에 동의합니다. 수집된 정보는 역학조사를 하게 될 경우에만 Institut national de santé publique du Québec 또는 Public Health Agency of Canada 에게 제공될 것으로 허락합니다. 
+
+ "동의 및 서명"을 클릭함으로써 본인의 이름과 이니셜이 펜으로 종이에 서명하는 것과 동일하게 모든 법적 구속력이 있는 서명 및 이니셜임을 인정하며 이것에 동의합니다. 
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  
+  *Agreement of Attendance to In-person Worship Gathering and Waiver of all Possible Claims and Assumption of Risk*
+
+ I(we) hereby acknowledge that I(we) have agreed to attend public gatherings and worship organized by Montreal Ramwon Church. 
+ 
+ I(we) acknowledge and confirm that I(we) accept the risk of exposure to COVID-19 while attending public gatherings or worship hosted by Montreal Ramwon Church. 
+ 
+ I(we) agree to release Montreal Ramwon Church, Peoples Church of Montreal, their employees, volunteers, related staff, and other attendees from any and all causes of action, claims, demands, requests, damages or any recourse whatsoever in respect to any personal injuries or other damages that may occur or arise as a result of exposure to COVID-19. This includes exposure while traveling to and from as well as during any public gatherings and worship hosted by Montreal Ramwon Church. I(we) declare that I(we) will not commence litigation or otherwise seek to recover damages or other compensation against Montreal Ramwon Church, Peoples Church of Montreal, and their employees, volunteers, and related staff. 
+ 
+ I(we) further acknowledge this Release of Liability, Waiver of all Possible Claims and Assumption of Risk can be used as a complete defense to any and all claims, damages, causes of action, or recourse or liability that may arise at any time. 
+ 
+ I(we) have carefully reviewed this Release of Liability, Waiver of all Possible Claims and Assumption of Risk and acknowledge that I fully understand the terms as set out above. 
+ 
+ I(we) acknowledge that I am signing this Release of Liability, Waiver of all Possible Claims and Assumption of Risk voluntarily. 
+
+  *Third Party Information Sharing *
+ I(we) agree to permit Montreal Ramwon Church to collect and share personal information including my full name and phone number to Institut National de Santé Publique du Québec and the Public Health Agency of Canada only when required for the purpose of public health measures to prevent further spread of COVID-19. 
+
+ By clicking “I agree and sign” I(we) agree that my full name and initials will be the electronic representation of my signature and initials for all purposes when used for documentation, including legal binding contacts – just the same as a pen-and-paper signature or initial
+
+                </textarea>
+
+                <label class="col-form-label-lg">Initials : </label>
+                <input asp-for="@Model.Initial" />
+                <span asp-validation-for="@Model.Initial" class="text-danger"></span>
+
+                <label><input type="checkbox" id="chkAgree" asp-for="@Model.SignAgreement" onchange="agreeChecked(this)" /> &nbsp; I agree and sign</label>
             </div>
 
             <div class="form-group">
                 <input asp-for="@Model.WorshipId" type="hidden" />
             </div>
 
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <br />
+
+            <div class="form-group" >
+                <input type="submit" disabled id="btnCreate" value="Create" class="btn btn-primary btn-block" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a href="/Attendance/AttendanceList?worshipId=@Model.WorshipId" >Back to List</a>
+    <a href="/Attendance/AttendanceList?worshipId=@Model.WorshipId">Back to List</a>
 </div>
+
+<script type="text/javascript">
+
+    function HideControl() {
+        document.getElementById("agreeText").style.display = 'block';
+        document.getElementById("btnCreate").disabled = true;
+    } 
+
+    function ShowControl() {
+        document.getElementById("agreeText").style.display = 'none';
+        document.getElementById("btnCreate").disabled = false;
+    }
+
+    function agreeChecked(chkbox) {
+        document.getElementById("btnCreate").disabled = !chkbox.checked;
+    }
+
+</script>
 
 
 @section Scripts {

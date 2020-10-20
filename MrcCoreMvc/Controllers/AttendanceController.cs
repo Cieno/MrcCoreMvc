@@ -70,7 +70,7 @@ namespace MrcCoreMvc.Controllers
         // GET: AttendanceController/Create
         public async Task<IActionResult> Create(string worshipId)
         {
-            var members = await _memberData.GetMembers();
+            var members = await _memberData.GetMembersToAdd(worshipId);
             var attendance = new AttendanceModel();
             attendance.WorshipId = worshipId;
             members.ForEach(x =>

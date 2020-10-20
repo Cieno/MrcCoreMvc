@@ -20,9 +20,9 @@ else
         <thead class="thead-dark">
             <tr>
                 <th>Attendance Name</th>
-                <th>Record Time</th>
-                <th>Member ID</th>
-                @*<th></th>*@
+                <th>Attendance Type</th>
+                <th>Arrival Time</th>
+                <th></th>
             </tr>
         </thead>
         @*<tbody>
@@ -42,7 +42,7 @@ else
     </table>
 
     @section Scripts{
-        <script src="~/js/attendance.js" wId="@Model.WorshipId"></script>
+        <script src="~/js/attendanceList.js" wId="@Model.WorshipId"></script>
     }
 
     <div>
