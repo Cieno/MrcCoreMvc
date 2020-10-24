@@ -28,7 +28,7 @@ namespace MrcCoreMvc
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddSingleton(new ConnectionString
             {
-                sqlConnectionName = "TestDB"
+                sqlConnectionName = "MRCDB"
             });
             services.AddSingleton<IDBAccess, DBAccess>();
             services.AddSingleton<IMemberData, MemberData>();

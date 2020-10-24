@@ -15,25 +15,24 @@ function loadList() {
             datatype: "json"
         },
         columns: [
-            { data: 'WorshipId', width: "20%" },
-            { data: 'memberName', width: "20%" },
-            { data: 'attendanceType', width: "20%" },
+            { data: 'memberName', width: "25%" },
+            { data: 'attendanceType', width: "25%" },
             {
-                data: 'estimatedArrival', width: "20%",
+                data: 'estimatedArrival', width: "25%",
                 render: function (data) {
                     return `${("0" + data.hours).slice(-2)}:${("0" + data.minutes).slice(-2)}`
                 }
             },
             {
-                data: { worshipId: "worshipId", memberId: 'memberId' },
+                data: { "worshipId": "worshipId", "memberId": "memberId"},
                 render: function (data) {
                     return `<div class="text-center"> 
                               <a class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
-                                onclick="Delete('/Attendance/Delete?worshipId='+${data.worshipId}+'&memberId='+${data.memberId});"> 
+                                onclick="Delete('/Attendance/Delete?worshipId='+${data.worshipId}+'&memberId='+'${(data.memberId)}');"> 
                                 <i class="far fa-trash-alt"></i> Delete
                               </a>
                             </div>`
-                }, width: "20%"
+                }, width: "25%"
             }
         ],
         language: {
