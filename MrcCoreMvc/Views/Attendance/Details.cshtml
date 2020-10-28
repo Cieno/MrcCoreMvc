@@ -5,18 +5,15 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Details" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
 
                 <div class="form-group">
                     <label asp-for="@Model.MemberName" class="col-form-label-lg b"></label>
-                    <input asp-for="@Model.MemberName" class="form-control" disabled/>
+                    <input asp-for="@Model.MemberName" class="form-control" disabled />
                 </div>
 
-                @*<label asp-for="@Model.MemberName" class="col-form-label-lg b"></label>
-                <select asp-for="@Model.MemberId" asp-items="@Model.MemberList" class="form-control"></select>
-                <span asp-validation-for="@Model.MemberId" class="text-danger"></span>*@
             </div>
 
             <div class="form-group">
@@ -31,7 +28,7 @@
 
             </div>
 
-            <div class="form-group" id="agreeText">
+            <div class="form-group" id="agreeText" style="display:none">
 
                 <label class="col-form-label-lg">Estimated arrival time at church</label>
                 <input type="time" asp-for="@Model.EstimatedArrival" />
@@ -81,8 +78,10 @@
  By clicking “I agree and sign” I(we) agree that my full name and initials will be the electronic representation of my signature and initials for all purposes when used for documentation, including legal binding contacts – just the same as a pen-and-paper signature or initial
 
                 </textarea>
-                <label class="col-form-label-lg"><input type="checkbox" id="chkAgree" asp-for="@Model.SignAgreement" onchange="agreeChecked(this)" /> 
-                    &nbsp; I agree and sign</label>
+                <label class="col-form-label-lg">
+                    <input type="checkbox" id="chkAgree" asp-for="@Model.SignAgreement" onchange="agreeChecked(this)" />
+                    &nbsp; I agree and sign
+                </label>
                 <br />
                 <label class="col-form-label-lg">Initials : </label>
                 <input id="txtInitial" asp-for="@Model.Initial" /><br />
@@ -100,7 +99,7 @@
             <br />
 
             <div class="form-group">
-                <input type="submit" disabled id="btnCreate" value="Create" class="btn btn-primary btn-block" />
+                <input type="submit" disabled id="btnUpdate" value="Update" class="btn btn-primary btn-block" />
             </div>
         </form>
     </div>
@@ -112,23 +111,34 @@
 
 <script type="text/javascript">
 
+    function pageLoad() {
+        if ($("input[name='AttendanceType']:checked").val() == "Offline") {
+            document.getElementById("agreeText").style.display = 'block';
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", pageLoad);
+
+    //document.addEventListener("DOMContentLoaded", () => {
+    //    document.getElementById("agreeText").style.display = 'none';
+    //});
+
     function ShowControl() {
         document.getElementById("agreeText").style.display = 'block';
-        document.getElementById("btnCreate").disabled = true;
+        document.getElementById("btnUpdate").disabled = true;
         document.getElementById("txtInitial").value = "";
-        //document.getElementById("chkAgree").checked = false;
     }
 
     function HideControl() {
         document.getElementById("agreeText").style.display = 'none';
-        document.getElementById("btnCreate").disabled = false;
+        document.getElementById("btnUpdate").disabled = false;
         document.getElementById("txtInitial").value = "n/a";
         document.getElementById("chkAgree").checked = false;
         document.getElementById("EstimatedArrival").value = "17:05:00";
     }
 
     function agreeChecked(chkbox) {
-        document.getElementById("btnCreate").disabled = !chkbox.checked;
+        document.getElementById("btnUpdate").disabled = !chkbox.checked;
     }
 
 </script>

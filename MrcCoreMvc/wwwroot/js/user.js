@@ -5,30 +5,26 @@ $(document).ready(function () {
 });
 
 function loadDataTable() {
-    dataTable = $('#ScheduleList').DataTable({
+    dataTable = $('#UserList').DataTable({
         ajax: {
-            url: "/worship/getall/",
+            url: "/user/getusers/",
             type: "GET",
             datatype: "json"
         },
         columns: [
+            { data: 'fullName', width: "25%"  },
+            { data: 'email', width: "25%" },
+            { data: 'phoneNumber', width: "25%" },
             {
-                data: { worshipId: "worshipId", simpleDate: "simpleDate" }, width: "15%",
-                render: function (data) { return `<a href="/Attendance/AttendanceList?worshipId=${data.worshipId}">${data.simpleDate}</a>` }
-            },
-            { data: 'simpleTime', width: "10%" },
-            { data: 'worshipName', width: "20%" },
-            //{ data: 'location', width: "30%" },
-            {
-                data: 'worshipId',
+                data: 'id',
                 render: function (data) {
                     return ` <div class="text-center">
-                        <a href="/Worship/Details?worshipId=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
+                        <a href="/User/Details?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
                             <i class="far fa-edit"></i> Edit
                         </a>
                         &nbsp;
                         <a class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
-                            onclick=Delete('/Worship/Delete?worshipId='+${data})>
+                            onclick="Delete('/User/Delete?id='+'${data}');">
                             <i class="far fa-trash-alt"></i> Delete
                         </a>
                     </div>`;

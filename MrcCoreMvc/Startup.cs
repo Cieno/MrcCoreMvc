@@ -36,6 +36,7 @@ namespace MrcCoreMvc
             services.AddSingleton<IAttendanceData, AttendanceData>();
             services.AddSingleton<ICodeMasterData, CodeMasterData>();
             services.AddSingleton<ICategoryMasterData, CategoryMasterData>();
+            services.AddSingleton<IUserData, UserData>();
 
             services.AddRazorPages();
         }
