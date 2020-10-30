@@ -5,11 +5,11 @@
         <h2 class="text-info">@Model.WorshipDate.ToString("dd MMMM")  @Model.WorshipName</h2>
     </div>
     <div class="col-3">
-        <a asp-action="Create" asp-route-worshipId="@Model.WorshipId" class="btn btn-info form-control text-white"><i class="fas fa-plus"></i> &nbsp;Participate in</a>
-        @if (Model.IsDuplicate)
+        <a asp-action="Create" asp-route-worshipId="@Model.WorshipId" asp-route-worshipDate="@Model.WorshipDate" class="btn btn-info form-control text-white"><i class="fas fa-plus"></i> &nbsp;Participate in</a>
+        @*@if (Model.IsDuplicate)
         {
             <label class="text-danger">You're participated in this service already.</label>
-        }
+        }*@
     </div>
 </div>
 
@@ -26,7 +26,8 @@ else
                 <th>Attendance Name</th>
                 <th>Attendance Type</th>
                 <th>Arrival Time</th>
-                <th></th>
+                <th>Agreement / Sign</th>
+                <th>Companions</th>
             </tr>
         </thead>
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +48,6 @@ namespace MrcCoreMvc.Controllers
             var worship = await _worshipData.GetWorshipById(worshipId);
             var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
             worship.WorshipName = worshipType.Where(n => worship.WorshipType == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
-
             return View(worship);
         }
 
@@ -62,7 +62,7 @@ namespace MrcCoreMvc.Controllers
 
         #endregion
 
-        public async Task<IActionResult> Create(string worshipId)
+        public async Task<IActionResult> Create(string worshipId, DateTime worshipDate)
         {
             var userInfo = await _userManager.GetUserAsync(User);
             var attendanceList = await _attendanceData.GetAttendanceByWorship(worshipId);
@@ -87,6 +87,7 @@ namespace MrcCoreMvc.Controllers
                 attendance.MemberName = userInfo.FullName;
                 attendance.MemberId = userInfo.Id;
                 attendance.WorshipId = worshipId;
+                attendance.EstimatedArrival = TimeSpan.Parse(worshipDate.ToString("HH:mm"));
 
                 return View(attendance);
             }
@@ -124,12 +125,34 @@ namespace MrcCoreMvc.Controllers
         }
 
         [HttpDelete]
+        public async Task<IActionResult> DeleteFromList(string worshipId, string memberId)
+        {
+            await _attendanceData.DeleteAttendance(worshipId, memberId);
+            return Json(new { success = true, message = "Delete successful" });
+        }
+
+        [HttpDelete]
         public async Task<IActionResult> Delete(string worshipId, string memberId)
         {
             await _attendanceData.DeleteAttendance(worshipId, memberId);
             return Json(new { success = true, message = "Delete successful" });
         }
 
+        //// GET: AttendanceController/Delete/5
+        //public async Task<IActionResult> Delete(string worshipId, string memberId)
+        //{
+        //    var attendance = await _attendanceData.GetAttendanceByWorshipMember(worshipId, memberId);
+        //    return View(attendance);
+        //}
+
+        //// POST: AttendanceController/Delete/5
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete(AttendanceModel attendance)
+        //{
+        //    await _attendanceData.DeleteAttendance(attendance.WorshipId, attendance.MemberId);
+        //    return RedirectToAction("AttendanceList", new { worshipId = attendance.WorshipId });
+        //}
 
     }
 }

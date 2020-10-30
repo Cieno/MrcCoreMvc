@@ -97,6 +97,5 @@ namespace MrcCoreMvc.Controllers
             await _memberData.DeleteMember(member.MemberId);
             return RedirectToAction("Index");
         }
-
     }
 }

@@ -5,7 +5,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Details" >
+        <form asp-action="Details">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
 
@@ -26,6 +26,12 @@
                 <input type="radio" asp-for="@Model.AttendanceType" name="AttendanceType" value="Online" onclick="HideControl()" /> OnLine <br />
                 <span asp-validation-for="@Model.AttendanceType" class="text-danger"></span>
 
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.Descr" class="col-form-label-lg">Companions</label> <br />
+                <input asp-for="@Model.Descr" class="form-control" />
+                <span asp-validation-for="@Model.Descr" class="text-danger"></span>
             </div>
 
             <div class="form-group" id="agreeText" style="display:none">
@@ -99,7 +105,11 @@
             <br />
 
             <div class="form-group">
-                <input type="submit" disabled id="btnUpdate" value="Update" class="btn btn-primary btn-block" />
+                <input type="submit" id="btnUpdate" value="Update" class="btn btn-primary btn-block" />
+            </div>
+            <div class="form-group">
+                <a class='btn btn-danger btn-block text-white' onclick="Delete('/Attendance/Delete?worshipId=@Model.WorshipId&memberId=@Model.MemberId', @Model.WorshipId);">Delete</a>
+                @*<a asp-action="Delete" asp-route-memberId="@Model.MemberId" asp-route-worshipId="@Model.WorshipId" class="btn btn-danger btn-block">Delete</a>*@
             </div>
         </form>
     </div>
@@ -110,6 +120,32 @@
 </div>
 
 <script type="text/javascript">
+    function Delete(url, worshipId) {
+        swal({
+            title: "Are you sure you want to Delete?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: url,
+                    success: function (data) {
+                        if (data.success) {
+                            //window.location.href = "/Attendance/AttendanceList?worshipId=" + worshipId;
+                            toastr.success(data.message);
+                            setTimeout(() => { window.location.href = "/Attendance/AttendanceList?worshipId=" + worshipId; }, 700);
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
 
     function pageLoad() {
         if ($("input[name='AttendanceType']:checked").val() == "Offline") {
