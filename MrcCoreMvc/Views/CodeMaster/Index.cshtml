@@ -19,8 +19,8 @@ else
     <table class="table table-striped">
         <thead class="thead-dark">
             <tr>
-                <th>Category ID</th>
                 <th>Code ID</th>
+                <th>Category ID</th>
                 <th>Code Description</th>
                 <th>Sort Order</th>
                 <th>Active YN</th>
@@ -31,8 +31,11 @@ else
             @foreach (var code in Model)
             {
                 <tr>
+                    @*<td>@code.CODE_ID</td>*@
+                    <td><a href="/CodeMaster/Details?codeId=@code.CODE_ID&categoryId=@code.CATEGORY_ID">
+                        @code.CODE_ID</a></td>
                     <td>@code.CATEGORY_ID</td>
-                    <td>@code.CODE_ID</td>
+
                     <td>@code.CODE_DESCR</td>
                     <td>@code.SORT_ORDER</td>
                     <td>@code.ACTIVE_YN</td>

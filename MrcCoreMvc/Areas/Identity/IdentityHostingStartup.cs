@@ -15,17 +15,22 @@ namespace MrcCoreMvc.Areas.Identity
     {
         public void Configure(IWebHostBuilder builder)
         {
-            builder.ConfigureServices((context, services) => {
+            builder.ConfigureServices((context, services) =>
+            {
                 services.AddDbContext<MrcDbContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("MrcDbContextConnection")));
 
-                services.AddDefaultIdentity<ApplicationUser>(options => {
+                //services.AddDefaultIdentity<ApplicationUser>(options => {
+                services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireLowercase = false;
                     options.Password.RequireUppercase = false;
                     options.Password.RequireNonAlphanumeric = false;
                 })
+                    .AddDefaultUI() //AddDefaultIdentity -> AddIdentity 추가
+                    .AddDefaultTokenProviders() //AddDefaultIdentity -> AddIdentity 추가
                     .AddEntityFrameworkStores<MrcDbContext>();
             });
         }

@@ -8,7 +8,7 @@ using MRCDataLibrary._03_Data;
 
 namespace MrcCoreMvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class MemberController : Controller
     {
         private readonly IMemberData _memberData;

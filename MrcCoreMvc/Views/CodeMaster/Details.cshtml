@@ -1,0 +1,95 @@
+﻿
+@model MRCDataLibrary._02_Models.CodeMasterModel
+
+<h1>Code Details</h1>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Details">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="@Model.CATEGORY_ID" class="custom-control-label"></label>
+                <input asp-for="@Model.CATEGORY_ID" class="form-control" readonly />
+                <span asp-validation-for="@Model.CATEGORY_ID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="@Model.CATEGORY_DESCR" class="custom-control-label"></label>
+                <input asp-for="@Model.CATEGORY_DESCR" class="form-control" readonly />
+                <span asp-validation-for="@Model.CATEGORY_DESCR" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.CODE_ID" class="custom-control-label"></label>
+                <input asp-for="@Model.CODE_ID" class="form-control" readonly />
+                <span asp-validation-for="@Model.CODE_ID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.CODE_DESCR" class="custom-control-label"></label>
+                <input asp-for="@Model.CODE_DESCR" class="form-control" />
+                <span asp-validation-for="@Model.CODE_DESCR" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.SORT_ORDER" class="custom-control-label"></label>
+                <input asp-for="@Model.SORT_ORDER" class="form-control" />
+                <span asp-validation-for="@Model.SORT_ORDER" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="@Model.ACTIVE_YN" class="form-check-label"></label>
+                &nbsp;&nbsp;<input asp-for="@Model.ACTIVE_YN" type="checkbox" class="form-check-label"
+                                   style="vertical-align:middle" />
+                <span asp-validation-for="@Model.ACTIVE_YN" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update Code" class="btn btn-primary btn-block" />
+            </div>
+            <div class="form-group">
+                <a class='btn btn-danger btn-block text-white'
+                   onclick="Delete('/CodeMaster/Delete?codeId=@Model.CODE_ID&categoryId=@Model.CATEGORY_ID');">
+                    Delete
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="/CodeMaster/Index">Back to List</a>
+</div>
+
+<script type="text/javascript">
+    function Delete(url) {
+        swal({
+            title: "Are you sure you want to Delete?",
+            text: "You will not be able to restore the data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                $.ajax({
+                    type: 'DELETE',
+                    url: url,
+                    success: function (data) {
+                        if (data.success) {
+                            toastr.success(data.message);
+                            setTimeout(() => { window.location.href = "/CodeMaster/Index"; }, 700);
+                        }
+                        else {
+                            toastr.error(data.message);
+                        }
+                    }
+                });
+            }
+        });
+    }
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+

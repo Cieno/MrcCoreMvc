@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.V3.Pages.Account.Manage.Internal;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MrcCoreMvc.Areas.Identity.Data;
 using MRCDataLibrary._02_Models;
@@ -13,20 +15,23 @@ using MRCDataLibrary._03_Data;
 
 namespace MrcCoreMvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class UserController : Controller
     {
         private readonly IUserData _userData;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<DeletePersonalDataModel> _logger;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public UserController(IUserData userData,
                               UserManager<ApplicationUser> userManager,
-                              ILogger<DeletePersonalDataModel> logger)
+                              ILogger<DeletePersonalDataModel> logger,
+                              RoleManager<IdentityRole> roleManager)
         {
             _userData = userData;
             _userManager = userManager;
             _logger = logger;
+            _roleManager = roleManager;
         }
         public async Task<IActionResult> Index()
         {
@@ -44,6 +49,12 @@ namespace MrcCoreMvc.Controllers
         public async Task<IActionResult> Details(string id)
         {
             var user = await _userData.GetUser(id);
+            var roles = _roleManager.Roles;
+            await roles.ForEachAsync(x =>
+             {
+                 user.RoleSelectList.Add(new SelectListItem { Value = x.Id, Text = x.Name });
+             });
+
             return View(user);
         }
 
@@ -69,7 +80,6 @@ namespace MrcCoreMvc.Controllers
 
             //return Redirect("~/");
             return Json(new { success = true, message = "Delete successful" });
-
         }
     }
 }

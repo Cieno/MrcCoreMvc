@@ -29,13 +29,14 @@ else
         <tbody>
             @foreach (var code in Model)
             {
-                <tr>
-                    <td>@code.CATEGORY_ID</td>
-                    <td>@code.CATEGORY_DESCR</td>
-                    <td>@code.ABBR_CD</td>
-                    <td>@code.ACTIVE_YN</td>
-                    <td>@code.CREATE_DT.ToString("yyyy-MM-dd")</td>
-                </tr>
+            <tr>
+                @*<td>@code.CATEGORY_ID</td>*@
+                <td><a href="/CategoryMaster/Details?categoryId=@code.CATEGORY_ID">@code.CATEGORY_ID</a></td>
+                <td>@code.CATEGORY_DESCR</td>
+                <td>@code.ABBR_CD</td>
+                <td>@code.ACTIVE_YN</td>
+                <td>@code.CREATE_DT.ToString("yyyy-MM-dd")</td>
+            </tr>
             }
         </tbody>
 

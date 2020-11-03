@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,7 +8,7 @@ using MRCDataLibrary._03_Data;
 
 namespace MrcCoreMvc.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Manager")]
     public class CodeMasterController : Controller
     {
         private readonly ICodeMasterData _codeMasterData;
@@ -19,11 +20,14 @@ namespace MrcCoreMvc.Controllers
             _categoryMasterData = categoryMasterData;
         }
 
+
+
         public async Task<IActionResult> Index(string categoryId)
         {
             var codeList = await _codeMasterData.GetCodeList(categoryId);
             return View(codeList);
         }
+
 
         public async Task<IActionResult> Create()
         {
@@ -46,21 +50,36 @@ namespace MrcCoreMvc.Controllers
                 return View();
             }
 
-            string createdId = await _codeMasterData.CreateCode(codeMaster);
-            return RedirectToAction("Index");
+            string codeId = await _codeMasterData.CreateCode(codeMaster);
+            return RedirectToAction("Details", new { codeId, categoryId = codeMaster.CATEGORY_ID });
         }
 
-        public ActionResult Delete(int id)
+
+        public async Task<IActionResult> Details(string codeId, string categoryId)
         {
-            return View();
+            var code = await _codeMasterData.GetCodeInfo(codeId, categoryId);
+            return View(code);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Delete(CodeMasterModel codeMaster)
+        public async Task<IActionResult> Details(CodeMasterModel codeMaster)
         {
-            await _codeMasterData.DeleteCode(codeMaster);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid == false)
+            {
+                return View();
+            }
+
+            var codeId = await _codeMasterData.UpdateCode(codeMaster);
+            return RedirectToAction("Details", new { codeId, categoryId = codeMaster.CATEGORY_ID });
+        }
+
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string codeId, string categoryId)
+        {
+            await _codeMasterData.DeleteCode(codeId, categoryId);
+            return Json(new { success = true, message = "Delete successful" });
         }
     }
 }

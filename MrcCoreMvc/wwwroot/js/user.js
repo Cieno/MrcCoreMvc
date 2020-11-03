@@ -12,9 +12,10 @@ function loadDataTable() {
             datatype: "json"
         },
         columns: [
-            { data: 'fullName', width: "25%"  },
-            { data: 'email', width: "25%" },
-            { data: 'phoneNumber', width: "25%" },
+            { data: 'fullName', width: "20%"  },
+            { data: 'email', width: "20%" },
+            { data: 'phoneNumber', width: "20%" },
+            { data: 'roleName', width: "20%" },
             {
                 data: 'id',
                 render: function (data) {
@@ -22,14 +23,24 @@ function loadDataTable() {
                         <a href="/User/Details?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
                             <i class="far fa-edit"></i> Edit
                         </a>
-                        &nbsp;
-                        <a class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
-                            onclick="Delete('/User/Delete?id='+'${data}');">
-                            <i class="far fa-trash-alt"></i> Delete
-                        </a>
                     </div>`;
-                }, width: "25%"
+                }, width: "20%"
             }
+            //{
+            //    data: 'id',
+            //    render: function (data) {
+            //        return ` <div class="text-center">
+            //            <a href="/User/Details?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
+            //                <i class="far fa-edit"></i> Edit
+            //            </a>
+            //            &nbsp;
+            //            <a class='btn btn-danger text-white' style='cursor:pointer; width:100px;'
+            //                onclick="Delete('/User/Delete?id='+'${data}');">
+            //                <i class="far fa-trash-alt"></i> Delete
+            //            </a>
+            //        </div>`;
+            //    }, width: "20%"
+            //}
         ],
         "language": {
             "emptyTable": "no data found."

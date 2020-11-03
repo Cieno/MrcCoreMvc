@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityRole>
+
+
+<div class="row">
+    <div class="col-9">
+        <h2 class="text-info">User Role List</h2>
+    </div>
+    <div class="col-3">
+        <a asp-action="Create" class="btn btn-info form-control text-white">Add User Role</a>
+    </div>
+</div>
+
+
+<table id="RoleList" class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+            @*<th>Role ID</th>*@
+            <th>Role Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    @*<tbody>
+            @foreach (var role in Model)
+            {
+                <tr>
+                    <td><a href="/UserRole/Details?name=@role.Name">@role.Id</a></td>
+                    <td>@role.Name</td>
+                </tr>
+            }
+        </tbody>*@
+
+</table>
+
+@section Scripts{
+    <script src="~/js/userRole.js"></script>
+}
