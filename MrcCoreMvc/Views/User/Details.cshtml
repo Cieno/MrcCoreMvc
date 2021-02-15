@@ -17,7 +17,7 @@
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                <span asp-validation-for="Email" class="text-danger"></span>
 
             </div>
             <div class="form-group">
@@ -45,6 +45,19 @@
                 <input asp-for="Id" class="form-control" type="hidden" />
             </div>
             <br />
+
+            <div>
+                @if (true)
+                {
+                    //string[] colors = "blue,black,red,silver".Split(',').Select(p => p.Trim()).ToArray();
+                    //var colors2 = "blue,black,red,silver".Split(',').Select(p => p.Trim()).ToList();
+                    foreach (var role in Model.Roles)
+                    {
+                        <input type="checkbox" name="Roles" value="@role"> @role <br />
+                    }
+                }
+
+            </div>
 
             @*<button id="update-profile-button" type="submit" class="btn btn-primary btn-block">Save</button>*@
             <div class="form-group">

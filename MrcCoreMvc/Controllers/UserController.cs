@@ -15,7 +15,7 @@ using MRCDataLibrary._03_Data;
 
 namespace MrcCoreMvc.Controllers
 {
-    [Authorize(Roles = "Manager")]
+    [Authorize(Roles = "Manager,Administrator")]
     public class UserController : Controller
     {
         private readonly IUserData _userData;
@@ -35,7 +35,8 @@ namespace MrcCoreMvc.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            return View();
+            var userInfo = await _userManager.GetUserAsync(User);
+            return View(userInfo);
         }
 
         [HttpGet]
@@ -53,6 +54,7 @@ namespace MrcCoreMvc.Controllers
             await roles.ForEachAsync(x =>
              {
                  user.RoleSelectList.Add(new SelectListItem { Value = x.Id, Text = x.Name });
+                 user.Roles.Add(x.Name);
              });
 
             return View(user);
@@ -60,9 +62,10 @@ namespace MrcCoreMvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Details(UserModel user)
+        public async Task<IActionResult> Details(UserModel user, List<string> Roles)
         {
             string id = await _userData.UpdateUser(user);
+            string role = String.Join(",", Roles.ToArray());
             return RedirectToAction("Details", new { id });
         }
 

@@ -1,4 +1,5 @@
 ﻿var dataTable;
+var userId = document.currentScript.getAttribute('userId');
 
 $(document).ready(function () {
     loadDataTable();
@@ -19,11 +20,21 @@ function loadDataTable() {
             {
                 data: 'id',
                 render: function (data) {
-                    return ` <div class="text-center">
-                        <a href="/User/Details?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
-                            <i class="far fa-edit"></i> Edit
-                        </a>
-                    </div>`;
+                    if (userId == data) {
+                        return ` <div class="text-center">
+                            <a href="/User/Details?id=${data}" class="btn btn-success text-white" style="cursor:pointer; width:100px;">
+                                <i class="far fa-edit"></i> Edit
+                            </a>
+                        </div>`;
+                    }
+                    else {
+                        return ` <div class="text-center">
+                            <a class="btn btn-dark text-white isDisabled" style="cursor:pointer; width:100px;">
+                                <i class="far fa-edit"></i> Edit
+                            </a>
+                        </div>`;
+                    }
+                   
                 }, width: "20%"
             }
             //{

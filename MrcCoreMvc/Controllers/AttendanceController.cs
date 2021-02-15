@@ -48,6 +48,7 @@ namespace MrcCoreMvc.Controllers
             var worship = await _worshipData.GetWorshipById(worshipId);
             var worshipType = await _codeMasterData.GetCodeList("WORSHIP_TYPE");
             worship.WorshipName = worshipType.Where(n => worship.WorshipType == n.CODE_ID).FirstOrDefault()?.CODE_DESCR;
+
             return View(worship);
         }
 

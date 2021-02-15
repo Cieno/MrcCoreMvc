@@ -1,4 +1,5 @@
-﻿
+﻿@model MrcCoreMvc.Areas.Identity.Data.ApplicationUser
+
 <div class="row">
     <div class="col-9">
         <h2 class="text-info">User List</h2>
@@ -22,5 +23,5 @@
 </table>
 
 @section Scripts{
-    <script src="~/js/user.js"></script>
+    <script src="~/js/user.js" userId="@Model.Id"></script>
 }
